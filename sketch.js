@@ -12,6 +12,7 @@ var gameState = "onSling";
 
 function preload() {
     backgroundImg = loadImage("sprites/bg.png");
+    fetchtime();
 }
 
 function setup(){
@@ -84,5 +85,19 @@ function mouseReleased(){
 function keyPressed(){
     if(keyCode === 32){
        // slingshot.attach(bird.body);
+    }
+}
+
+async function fetchtime()
+{
+    var time=await fetch("http://worldtimeapi.org/api/timezone/Asia/Kolkata");
+    var data=await time.json();
+    var hour=data.datetime.slice(11,13);
+    if(hour>=6&&hour<=18)
+    {
+        backgroundImg = loadImage("sprites/bg.png");
+    }
+    else{
+        backgroundImg = loadImage("sprites/bg2.jpg");
     }
 }
